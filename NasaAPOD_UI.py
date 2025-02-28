@@ -33,7 +33,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title with Animation
-st.markdown("""<div class='title'>🚀 NASA Astronomy Picture of the Day AI™</div>""", unsafe_allow_html=True)
+st.markdown("""<div class='title'>🚀 NASA Astronomy Picture of the Day AI</div>""", unsafe_allow_html=True)
 st.markdown("""<div class='cosmic-text'>Uncover the Cosmic Mysteries with AI + NASA 🌌</div>""", unsafe_allow_html=True)
 
 # Random NASA Facts
