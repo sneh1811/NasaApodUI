@@ -3,7 +3,7 @@ import requests
 import time
 import random
 
-st.set_page_config(page_title="NASA Astronomy Picture of the Day AI 9000™", page_icon="🌌", layout="centered")
+st.set_page_config(page_title="NASA Astronomy Picture of the Day AI", page_icon="🌌", layout="centered")
 
 # CSS Animations & Styles
 st.markdown("""
