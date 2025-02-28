@@ -14,7 +14,7 @@ st.markdown("""
     }
     .title {
         text-align: center;
-        font-size: 3em;
+        font-size: 2.5em;
         letter-spacing: 2px;
         color: #f39c12;
         text-shadow: 0 0 15px rgba(243, 156, 18, 0.8);
