@@ -4,7 +4,7 @@ import time
 import random
 
 st.set_page_config(page_title="NASA APOD AI 9000™", page_icon="🌌", layout="centered")
-
+NASA_API_KEY = st.secrets["NASA_API_KEY"]
 # Cosmic CSS Styles
 st.markdown("""
     <style>
@@ -94,8 +94,14 @@ if st.button("🚀 Ignite Cosmic Discovery"):
             loading_placeholder.text("🚀 Scanning the Universe..." if percent % 20 < 10 else "🌌 Fetching Cosmic Content...")
 
         try:
-            response = requests.post("https://nasaapod.onrender.com/get_nasa_apod", json={"query": query})
-            data = response.json()
+            # Direct API Call if Date is selected
+            if st.session_state["last_updated"] == "selected_date":
+                api_url = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}&date={query}"
+                response = requests.get(api_url)
+                data = response.json()
+            else:
+                response = requests.post("https://nasaapod.onrender.com/get_nasa_apod", json={"query": query})
+                data = response.json()
 
             progress_bar.empty()
             loading_placeholder.empty()
