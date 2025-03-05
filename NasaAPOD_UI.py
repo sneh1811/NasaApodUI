@@ -96,6 +96,7 @@ if st.button("🚀 Ignite Cosmic Discovery"):
         try:
             # Direct API Call if Date is selected
             if st.session_state["last_updated"] == "selected_date":
+                st.write(st.session_state["last_updated"])
                 api_url = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}&date={query}"
                 response = requests.get(api_url)
                 data = response.json()
