@@ -87,8 +87,8 @@ if st.button("🚀 Ignite Cosmic Discovery"):
         st.write(f"💡 {random.choice(nasa_facts)}")
         progress_bar = st.progress(0)
 
-        for percent in range(90):
-            time.sleep(0.2)
+        for percent in range(95):
+            time.sleep(0.5)
             progress_bar.progress(percent + 1)
             loading_placeholder.text("🚀 Scanning the Universe..." if percent % 20 < 10 else "🌌 Fetching Cosmic Content...")
 
@@ -131,6 +131,6 @@ if st.button("🚀 Ignite Cosmic Discovery"):
 
         except Exception:
             st.error("Something went wrong. Please try again later.")
-            st.write(Exception)
+            st.write(Exception.args)
     else:
         st.warning("Please enter a query or select a date.")
