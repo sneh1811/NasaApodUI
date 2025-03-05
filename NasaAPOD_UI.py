@@ -133,6 +133,6 @@ if st.button("🚀 Ignite Cosmic Discovery"):
             st.error("Something went wrong. Please try again later.")     
             template = "An exception of type {0} occurred. Arguments:\n{1!r}"
             message = template.format(type(ex).__name__, ex.args)
-            print(message)
+            st.write(message)
     else:
         st.warning("Please enter a query or select a date.")
