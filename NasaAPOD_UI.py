@@ -3,40 +3,36 @@ import requests
 import time
 import random
 
-st.set_page_config(page_title="NASA Astronomy Picture of the Day AI", page_icon="🌌", layout="centered")
+st.set_page_config(page_title="NASA APOD AI 9000™", page_icon="🌌", layout="centered")
 
-# CSS Animations & Styles
+# Cosmic CSS Styles
 st.markdown("""
     <style>
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
     }
+    body { background: radial-gradient(circle, #0d1b2a 0%, #1b2735 50%, #090a0f 100%) !important; color: #ffffff; }
     .title {
+        animation: fadeIn 2s ease-in-out;
         text-align: center;
-        font-size: 2em;
+        font-size: 3em;
         letter-spacing: 2px;
         color: #f39c12;
         text-shadow: 0 0 15px rgba(243, 156, 18, 0.8);
     }
-    body { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
-    .main { backdrop-filter: blur(20px); padding: 20px; border-radius: 15px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); }
-    .float-btn { position: fixed; bottom: 20px; right: 20px; background: #f39c12; color: white; padding: 10px 20px; border-radius: 50px; cursor: pointer; text-align: center; font-weight: bold; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); }
     .cosmic-text {
         text-align: center;
         font-size: 1.5em;
         color: #f39c12;
-        text-shadow: 0 0 10px rgba(243, 156, 18, 0.8);
         margin-bottom: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Title with Animation
-st.markdown("""<div class='title'>🚀 NASA Astronomy Picture of the Day AI</div>""", unsafe_allow_html=True)
-st.markdown("""<div class='cosmic-text'>Uncover the Cosmic Mysteries with AI + NASA 🌌</div>""", unsafe_allow_html=True)
+st.markdown("<div class='title'>🚀 NASA APOD AI 9000™</div>", unsafe_allow_html=True)
+st.markdown("<div class='cosmic-text'>Uncover the Cosmic Mysteries with AI + NASA 🌌</div>", unsafe_allow_html=True)
 
-# Random NASA Facts
 nasa_facts = [
     "Did you know? NASA's Voyager 1 is the farthest human-made object from Earth!",
     "Cosmic Fact: A day on Venus is longer than its year!",
@@ -44,40 +40,80 @@ nasa_facts = [
     "Fact: The Sun is actually white, not yellow!"
 ]
 
-# Query Input
-query = st.text_input("What cosmic mystery would you like to uncover today? 🔍")
+# Track which field was updated last
+if "last_updated" not in st.session_state:
+    st.session_state["last_updated"] = None
 
-if st.button("🚀 Ignite Cosmic Discovery") or (query and st.session_state.get("enter_pressed", True)):
+
+def set_last_updated(field):
+    st.session_state["last_updated"] = field
+
+
+# Input Fields with Callbacks
+st.markdown("### Ask the Cosmos 🔍")
+input_query = st.text_input(
+    "Describe your Cosmic Curiosity", 
+    key="input_query",
+    on_change=set_last_updated,
+    args=("input_query",)
+)
+
+st.markdown("### Or")
+
+
+st.markdown("### Pick a Date to Discover the Cosmic Picture 🌌")
+selected_date = st.date_input(
+    "Pick a Date", 
+    key="selected_date",
+    on_change=set_last_updated,
+    args=("selected_date",),
+    value=None
+)
+
+# Set Query Based on Last Updated Field
+query = ""
+if st.session_state["last_updated"] == "input_query" and input_query:
+    query = input_query
+elif st.session_state["last_updated"] == "selected_date" and selected_date:
+    query = selected_date.strftime("%Y-%m-%d")
+
+
+if st.button("🚀 Ignite Cosmic Discovery"):
     if query:
         loading_placeholder = st.empty()
-        progress_bar = st.progress(0)
         st.write(f"💡 {random.choice(nasa_facts)}")
-        toggle = True
-        for percent in range(95):
+        progress_bar = st.progress(0)
+
+        for percent in range(90):
             time.sleep(0.2)
             progress_bar.progress(percent + 1)
-            if percent % 30 == 0:
-                toggle = not toggle
-                loading_placeholder.text("🚀 Scanning the Universe..." if toggle else "Fetching cosmic content... 🌌")
-        
+            loading_placeholder.text("🚀 Scanning the Universe..." if percent % 20 < 10 else "🌌 Fetching Cosmic Content...")
+
         try:
             response = requests.post("https://nasaapod.onrender.com/get_nasa_apod", json={"query": query})
             data = response.json()
 
+            progress_bar.empty()
+            loading_placeholder.empty()
+
             if "error" in data:
                 st.error(data["error"])
             else:
-                progress_bar.empty()
-                loading_placeholder.empty()
                 st.subheader(data["title"])
-                st.write(f"**Date:** {data["date"]}")
+                st.write(f"**Date Derived:** {data['date']}")
                 st.write(data["explanation"])
 
                 if data["media_type"] == "image":
                     st.image(data["image_url"], caption="NASA Astronomy Picture of the Day", use_container_width=True)
                 elif data["media_type"] == "video":
                     st.video(data["video_url"])
-        except Exception as e:
+
+                # Reset State
+                st.session_state["input_query"] = ""
+                st.session_state["selected_date"] = None
+                st.session_state["last_updated"] = None
+
+        except Exception:
             st.error("Something went wrong. Please try again later.")
     else:
-        st.warning("Please enter a query.")
+        st.warning("Please enter a query or select a date.")
