@@ -124,8 +124,7 @@ if st.button("🚀 Ignite Cosmic Discovery"):
                 elif data["media_type"] == "video":
                     st.video(data["video_url"])
 
-                st.session_state["selected_date"] = None
-                st.session_state["last_updated"] = None
+
 
         except Exception as ex:
             st.error("Something went wrong. Please try again later.")     
