@@ -124,15 +124,11 @@ if st.button("🚀 Ignite Cosmic Discovery"):
                 elif data["media_type"] == "video":
                     st.video(data["video_url"])
 
-                # Reset State
-                st.session_state["input_query"] = ""
                 st.session_state["selected_date"] = None
                 st.session_state["last_updated"] = None
 
         except Exception as ex:
             st.error("Something went wrong. Please try again later.")     
-            template = "An exception of type {0} occurred. Arguments:\n{1!r}"
-            message = template.format(type(ex).__name__, ex.args)
-            st.write(message)
+
     else:
         st.warning("Please enter a query or select a date.")
