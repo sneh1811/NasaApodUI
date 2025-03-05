@@ -97,8 +97,14 @@ if st.button("🚀 Ignite Cosmic Discovery"):
             if st.session_state["last_updated"] == "selected_date":
                 st.write(st.session_state["last_updated"])
                 api_url = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}&date={query}"
-                response = requests.get(api_url)
-                data = response.json()
+                response = requests.get(api_url).json()
+                data = {
+                    "date": response["date"],
+                    "title": response["title"],
+                    "explanation": response["explanation"],
+                    "media_type": response["media_type"],
+                    "image_url": response.get("hdurl", response.get("url", "")),
+                }
             else:
                 response = requests.post("https://nasaapod.onrender.com/get_nasa_apod", json={"query": query})
                 data = response.json()
