@@ -85,6 +85,7 @@ if st.button("🚀 Ignite Cosmic Discovery"):
     if query:
         loading_placeholder = st.empty()
         st.write(f"💡 {random.choice(nasa_facts)}")
+        st.write(st.session_state["last_updated"] == "selected_date")
         progress_bar = st.progress(0)
 
         for percent in range(90):
@@ -94,7 +95,6 @@ if st.button("🚀 Ignite Cosmic Discovery"):
 
         try:
             # Direct API Call if Date is selected
-            st.write(st.session_state["last_updated"] == "selected_date")
             if st.session_state["last_updated"] == "selected_date":
                 st.write(st.session_state["last_updated"])
                 api_url = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}&date={query}"
