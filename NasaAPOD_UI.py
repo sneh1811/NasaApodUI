@@ -131,6 +131,6 @@ if st.button("🚀 Ignite Cosmic Discovery"):
 
         except Exception:
             st.error("Something went wrong. Please try again later.")
-            st.write(str(Exception))
+            st.write(Exception)
     else:
         st.warning("Please enter a query or select a date.")
