@@ -88,7 +88,7 @@ if st.button("🚀 Ignite Cosmic Discovery"):
         progress_bar = st.progress(0)
 
         for percent in range(95):
-            time.sleep(0.5)
+            time.sleep(0.1)
             progress_bar.progress(percent + 1)
             loading_placeholder.text("🚀 Scanning the Universe..." if percent % 20 < 10 else "🌌 Fetching Cosmic Content...")
 
