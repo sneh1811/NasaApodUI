@@ -80,7 +80,6 @@ if st.session_state["last_updated"] == "input_query" and input_query:
     query = input_query
 elif st.session_state["last_updated"] == "selected_date" and selected_date:
     query = selected_date.strftime("%Y-%m-%d")
-st.write(st.session_state["last_updated"])
 
 if st.button("🚀 Ignite Cosmic Discovery"):
     if query:
@@ -95,7 +94,8 @@ if st.button("🚀 Ignite Cosmic Discovery"):
 
         try:
             # Direct API Call if Date is selected
-            if st.session_state["last_updated"] === "selected_date":
+            st.write(st.session_state["last_updated"] == "selected_date")
+            if st.session_state["last_updated"] == "selected_date":
                 st.write(st.session_state["last_updated"])
                 api_url = f"https://api.nasa.gov/planetary/apod?api_key={NASA_API_KEY}&date={query}"
                 response = requests.get(api_url)
