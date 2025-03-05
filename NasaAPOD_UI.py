@@ -129,8 +129,10 @@ if st.button("🚀 Ignite Cosmic Discovery"):
                 st.session_state["selected_date"] = None
                 st.session_state["last_updated"] = None
 
-        except Exception:
-            st.error("Something went wrong. Please try again later.")
-            st.write(Exception)
+        except Exception as ex:
+            st.error("Something went wrong. Please try again later.")     
+            template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+            message = template.format(type(ex).__name__, ex.args)
+            print(message)
     else:
         st.warning("Please enter a query or select a date.")
