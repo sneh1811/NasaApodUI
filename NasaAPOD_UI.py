@@ -62,7 +62,7 @@ input_query = st.text_input(
     args=("input_query",)
 )
 
-st.markdown("### Or")
+st.markdown("### OR")
 
 
 st.markdown("### Pick a Date to Discover the Cosmic Picture 🌌")
