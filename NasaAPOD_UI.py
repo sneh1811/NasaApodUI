@@ -37,7 +37,11 @@ nasa_facts = [
     "Did you know? NASA's Voyager 1 is the farthest human-made object from Earth!",
     "Cosmic Fact: A day on Venus is longer than its year!",
     "Trivia: Saturn has 82 moons... and counting!",
-    "Fact: The Sun is actually white, not yellow!"
+    "Fact: The Sun is actually white, not yellow!",
+    "Voyager 1 is now over 14 billion miles away from Earth!",
+    "Venus is the hottest planet in our solar system... not Mercury!",
+    "A spoonful of neutron star would weigh about a billion tons!",
+    "The Andromeda Galaxy will collide with the Milky Way... in 4 billion years!"
 ]
 
 # Track which field was updated last
