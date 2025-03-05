@@ -104,6 +104,7 @@ if st.button("🚀 Ignite Cosmic Discovery"):
                     "explanation": response["explanation"],
                     "media_type": response["media_type"],
                     "image_url": response.get("hdurl", response.get("url", "")),
+                    "video_url": response["url"],
                 }
             else:
                 response = requests.post("https://nasaapod.onrender.com/get_nasa_apod", json={"query": query})
