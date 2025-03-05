@@ -85,7 +85,6 @@ if st.button("🚀 Ignite Cosmic Discovery"):
     if query:
         loading_placeholder = st.empty()
         st.write(f"💡 {random.choice(nasa_facts)}")
-        st.write(st.session_state["last_updated"] == "selected_date")
         progress_bar = st.progress(0)
 
         for percent in range(90):
@@ -126,5 +125,6 @@ if st.button("🚀 Ignite Cosmic Discovery"):
 
         except Exception:
             st.error("Something went wrong. Please try again later.")
+            st.write(Exception)
     else:
         st.warning("Please enter a query or select a date.")
